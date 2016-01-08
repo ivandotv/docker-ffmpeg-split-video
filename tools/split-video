@@ -1,0 +1,77 @@
+#!/bin/bash
+
+#######################################
+# Split video file in multiple parts
+
+# Globals:
+#   $EUID
+
+# Arguments:
+# video_file
+# [number_of_parts 2]
+# [output_folder]
+
+# Returns:
+#   None
+#######################################
+
+printHelp(){
+  printf "${boldText}usage${normalText}:$(basename $0) video_file [number_of_parts 2] [output_folder]
+
+  ${boldText}video_file${normalText}: Video file you want to split.
+  ${boldText}number_of_parts${normalText}: How many parts you want the video to be split at. Default is 2.
+  ${boldText}output_folder${normalText}: Folder where to put the new files.
+  if not provided, files will go to the same folder as original file.
+
+${boldText}DESRIPTION${normalText}:
+  Split video file in multiple files.
+  Video file won't be encoded.\n" >&2
+}
+
+
+file=
+absolutePath=
+outputFolderAbsolutePath=
+dockerOutFolderParam=()
+dockerOutVolumeFlag=
+declare -r userID=$EUID
+split=2
+
+boldText=$(tput bold)
+normalText=$(tput sgr0)
+
+# if [[ -z $1 || $1=='--help' ]];then
+#    printHelp
+#    exit 1
+# fi
+
+if [[ -a "$1" ]];then
+  file=$1
+  filename=$(basename "$file")
+else
+  echo  "Not a valid file" >&2
+fi
+
+if [[ $2 && $2 -gt 0 ]]
+then
+  split=$2
+fi
+
+if [[ -n $3 ]];then
+  if [[ -d $3 && -w $3 ]];then
+    outputFolderAbsolutePath=$(cd "$3"; pwd)/
+    dockerOutFolderParam=(-v "${outputFolderAbsolutePath}":/tmp/video-out)
+  else
+    echo "Output folder is not writable or it doesn't exist : $3" >&2
+    exit 1
+  fi
+fi
+
+
+dirname=$(dirname "$file")
+
+if type docker > /dev/null 2>&1;then
+docker run -it --rm  -u ${userID} -v "${dirname}":/tmp/video-in   "${dockerOutFolderParam[@]}" ivandotv/ffmpeg-split-video "split" "$filename"  "$split"
+else
+  echo "It appears that Docker is not installed on this system." >&2
+fi
