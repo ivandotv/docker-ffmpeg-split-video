@@ -12,7 +12,7 @@ It's a chore to properly install ffmpeg and all the codecs, and it's also not ve
 - `run` command can work without mounting the output directory, in that case newly created video files will be put in the same directory as the original video file.
 - Default split is `2` (example uses `4`).
 - If you **don't** use "split" as the first parameter that is passed to the container, then you will call "ffmpeg" binary directly (and can use it for whatever you normally use it for).
-- When video file is split, it's not be re-encoded.
+- When video file is split, it's not re-encoded.
 
 
 Actual command line parameters that are going to be passed to `ffmpeg` binary are:
