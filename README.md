@@ -29,6 +29,7 @@ There is also a helper script (./tools/split-video) that is used as a wrapper fo
 You can put it somewhere in your `$PATH` so you can call it from everywhere.
 
 Use it like this:
+
 `split-video video_file [number_of_parts] [output_folder]`
 
 The script will launch the container, and pass all the required parameters for the `split` functionality (mounting volumes, passing correct arguments etc...)
