@@ -6,8 +6,11 @@ It's a chore to properly install ffmpeg and all the codecs, and it's also not ve
 
 ****Usage****
 
-`docker run -it --rm  -u "your-user-id" -v /directory-with-video:/tmp/video-in
--v your-output-directory:/tmp/video-out ivandotv/ffmpeg-split-video "split" "big-video-file.avi" 4`
+`docker run -it --rm  \ 
+-u "your-user-id" \ 
+-v /directory-with-video:/tmp/video-in \
+-v your-output-directory:/tmp/video-out \ 
+ivandotv/ffmpeg-split-video "split" "big-video-file.avi" 4`
 
 - `run` command can work without mounting the output directory, in that case newly created video files will be put in the same directory as the original video file.
 - Default split is `2` (example uses `4`).
