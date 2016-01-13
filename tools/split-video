@@ -2,7 +2,7 @@
 
 #######################################
 # Split video file in multiple parts
-
+# version: 1.0.0
 # Globals:
 #   $EUID
 
