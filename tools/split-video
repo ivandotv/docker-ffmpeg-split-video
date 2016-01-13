@@ -40,10 +40,10 @@ split=2
 boldText=$(tput bold)
 normalText=$(tput sgr0)
 
-# if [[ -z $1 || $1=='--help' ]];then
-#    printHelp
-#    exit 1
-# fi
+if [[ -z $1 || $1 == '--help' ]];then
+    printHelp
+    exit 1
+fi
 
 if [[ -a "$1" ]];then
   file=$1
