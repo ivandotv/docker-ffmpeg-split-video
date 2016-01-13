@@ -67,7 +67,8 @@ if [[ -n $3 ]];then
   fi
 fi
 
-dirname=$(pwd $(dirname "$file"))
+dirname=$(dirname "$file")
+dirname=$(cd "$dirname" && pwd "$dirname") 2> /dev/null
 
 if type docker > /dev/null 2>&1;then
 docker run -it --rm  -u ${userID} -v "${dirname}":/tmp/video-in   "${dockerOutFolderParam[@]}" ivandotv/ffmpeg-split-video "split" "$filename"  "$split"
