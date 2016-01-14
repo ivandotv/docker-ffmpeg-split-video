@@ -47,7 +47,7 @@ fi
 
 if [[ -a "$1" ]];then
   file=$1
-  filename=$(basename "$file")
+  filename=$(basename -- "$file")
 else
   echo  "Not a valid file" >&2
 fi
@@ -59,7 +59,7 @@ fi
 
 if [[ -n $3 ]];then
   if [[ -d $3 && -w $3 ]];then
-    outputFolderAbsolutePath=$(cd "$3"; pwd)/
+    outputFolderAbsolutePath=$(cd -- "$3"; pwd)/
     dockerOutFolderParam=(-v "${outputFolderAbsolutePath}":/tmp/video-out)
   else
     echo "Output folder is not writable or it doesn't exist : $3" >&2
@@ -67,8 +67,8 @@ if [[ -n $3 ]];then
   fi
 fi
 
-dirname=$(dirname "$file")
-dirname=$(cd "$dirname" && pwd "$dirname") 2> /dev/null
+dirname=$(dirname -- "$file")
+dirname=$(cd -- "$dirname" && pwd ) 2> /dev/null
 
 if type docker > /dev/null 2>&1;then
 docker run -it --rm  -u ${userID} -v "${dirname}":/tmp/video-in   "${dockerOutFolderParam[@]}" ivandotv/ffmpeg-split-video "split" "$filename"  "$split"
