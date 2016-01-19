@@ -7,16 +7,16 @@ It's a chore to properly install ffmpeg and all the codecs, and it's also not ve
 ****Usage****
 
 ```
-    docker run -it --rm  \ 
-    -u "your-user-id" \ 
+    docker run -it --rm  \
+    -u "your-user-id" \
     -v /directory-with-video:/tmp/video-in \
-    -v your-output-directory:/tmp/video-out \ 
+    -v your-output-directory:/tmp/video-out \
     ivandotv/ffmpeg-split-video "split" "big-video-file.avi" 4
 ```
 
 - `run` command can work without mounting the output directory, in that case newly created video files will be put in the same directory as the original video file.
 - Default split is `2` (example uses `4`).
-- If you **don't** use "split" as the first parameter that is passed to the container, then you will call "ffmpeg" binary directly (and can use it for whatever you normally use it for).
+- You can also call `ffmpeg` or `ffprobe` directly (instead of "split")
 - When video file is split, it's not re-encoded.
 
 
