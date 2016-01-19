@@ -31,25 +31,14 @@ if [[ -d "$testOutFolder" ]];then
     outputFolder="$testOutFolder"
 fi
 
-duration=$( ffmpeg -i "$file" 2>&1 | grep -i duration )
-echo $duration
+duration=$( ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$file" | sed -r 's/\..+//')
 
-durationInSeconds=$(awk 'BEGIN { FS=":"; }; \
-{ \
-  gsub("^ 0","",$2); \
-  gsub("^0","",$3); \
-  gsub("\\.[0-9][0-9], start","",$4); \
-  }; \
-END { \
-  $total=($2*3600)+($3*60)+$4; \
-  print $total; \
- };' <<< "$duration" )
+echo "Duration in seconds : $durationInSeconds" >&2
 
-
-if (( $durationInSeconds > 0 ));then
+if (( $duration > 0 ));then
   # there is no 'bc' on centOS (yum -y bc)
   # partDuration=$(bc <<< "scale=2;${durationInSeconds}/${split}")
-  partDuration=$(awk -v duration="$durationInSeconds" -v parts="$split" 'BEGIN { print duration/parts }')
+  partDuration=$(awk -v duration="$duration" -v parts="$split" 'BEGIN { print duration/parts }')
   echo "Each part will be: $partDuration seconds long" >&2
 fi
 
@@ -74,4 +63,6 @@ for((i=1;i<="$split";i++));do
     echo -e "\n \n"  >&2
     startTime=$endTime
   fi
+      startTime=$endTime
+
 done
