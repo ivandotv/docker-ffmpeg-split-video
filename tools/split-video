@@ -40,7 +40,7 @@ split=2
 boldText=$(tput bold)
 normalText=$(tput sgr0)
 
-if [[ -z $1 || $1 == '--help' ]];then
+if [[ -z "$1" || "$1" == '--help' ]];then
     printHelp
     exit 1
 fi
@@ -52,13 +52,13 @@ else
   echo  "Not a valid file" >&2
 fi
 
-if [[ $2 && $2 -gt 0 ]]
+if [[ "$2" && "$2" -gt 0 ]]
 then
   split=$2
 fi
 
-if [[ -n $3 ]];then
-  if [[ -d $3 && -w $3 ]];then
+if [[ -n "$3" ]];then
+  if [[ -d "$3" && -w "$3" ]];then
     outputFolderAbsolutePath=$(cd -- "$3"; pwd)/
     dockerOutFolderParam=(-v "${outputFolderAbsolutePath}":/tmp/video-out)
   else
