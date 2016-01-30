@@ -1,5 +1,4 @@
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/ivandotv/ffmpeg-split-video.svg?style=flat-square)](https://hub.docker.com/r/ivandotv/ffmpeg-split-video/)
 ### Easily split video files with the help of a docker container and ffmpeg. ###
 
 It's a chore to properly install ffmpeg and all the codecs, and it's also not very easy to split video files. So that's why this image was created.
