@@ -25,7 +25,7 @@ printHelp(){
 
 ${boldText}DESRIPTION${normalText}:
   Split video file in multiple files.
-  Video file won't be encoded.\n" >&2
+  Video file won't be encoded again.\n" >&2
 }
 
 
