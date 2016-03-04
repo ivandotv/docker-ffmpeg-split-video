@@ -71,7 +71,14 @@ dirname=$(dirname -- "$file")
 dirname=$(cd -- "$dirname" && pwd ) 2> /dev/null
 
 if type docker > /dev/null 2>&1;then
-docker run -it --rm  -u ${userID} -v "${dirname}":/tmp/video-in   "${dockerOutFolderParam[@]}" ivandotv/ffmpeg-split-video "split" "$filename"  "$split"
+  docker run -it --rm  -u ${userID} -v "${dirname}":/tmp/video-in   "${dockerOutFolderParam[@]}" ivandotv/ffmpeg-split-video "split" "$filename"  "$split"
+ 
+  if type notify-send > /dev/null 2>&1; then
+    if [[ "$?" == '0' ]]; then
+      notify-send "Spliting video success"
+    else
+      notify-send "Spliting video ERROR"
+    fi
 else
   echo "It appears that Docker is not installed on this system." >&2
 fi
