@@ -1,8 +1,5 @@
 FROM jrottenberg/ffmpeg:latest
 
-MAINTAINER Ivan Vlatkovic <ivan.vlatkovic@gmail.com>
-
-
 COPY ["container-init.sh","/usr/local/sbin/"]
 
 COPY ["ffmpeg-split.sh","/usr/local/sbin/"]
