@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -euo pipefail
 
 temp_build_dir='temp_build_dir'
 build_assets_dir='build-assets'
