@@ -1,11 +1,10 @@
-
-### Easily split video files with the help of a docker container and ffmpeg. ###
+# Easily split video files with the help of a docker container and ffmpeg
 
 It's a chore to properly install ffmpeg and all the codecs, and it's also not very easy to split video files. So that's why this image was created.
 
-****Usage****
+\***\*Usage\*\***
 
-```
+```bash
     docker run -it --rm  \
     -u "your-user-id" \
     -v /directory-with-video:/tmp/video-in \
@@ -18,12 +17,12 @@ It's a chore to properly install ffmpeg and all the codecs, and it's also not ve
 - You can also call `ffmpeg` or `ffprobe` directly (instead of "split")
 - When video file is split, it's not re-encoded.
 
-
 Actual command line parameters that are going to be passed to `ffmpeg` binary are:
 
-`ffmpeg -i "big-video-file" -ss (start time) -to (end time )  -acodec copy -vcodec copy "output-file-directory"`
+`ffmpeg -i "big-video-file" -ss (start time) -to (end time ) -acodec copy -vcodec copy "output-file-directory"`
 
-### Helper script ###
+## Helper script
+
 There is also a helper script (./tools/split-video) that is used as a wrapper for the `split` functionality of the container.
 You can put it somewhere in your `$PATH` so you can call it from everywhere.
 
