@@ -1,4 +1,4 @@
-FROM jrottenberg/ffmpeg:4.3-ubuntu
+FROM jrottenberg/ffmpeg:4.4-ubuntu
 
 COPY ./build-assets/container-init.sh /usr/local/sbin/
 
